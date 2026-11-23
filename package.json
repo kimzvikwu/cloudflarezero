@@ -1,0 +1,16 @@
+{
+  "name": "cf-ai-zeroday-triage",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Zero Day Triage Desk: an AI-powered vulnerability triage app on Cloudflare (Workers AI, Workflows, Durable Objects, Static Assets)",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^5.20261119.1",
+    "typescript": "^5.6.0",
+    "wrangler": "^4.0.0"
+  }
+}

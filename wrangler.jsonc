@@ -1,0 +1,26 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "cf-ai-zeroday-triage",
+  "main": "src/index.ts",
+  "compatibility_date": "2025-09-01",
+  "compatibility_flags": ["nodejs_compat"],
+
+  // Chat UI served from Workers Static Assets; anything under /api/ falls through to the Worker.
+  "assets": { "directory": "./public", "binding": "ASSETS" },
+
+  // LLM: Llama 3.3 70B on Workers AI.
+  "ai": { "binding": "AI" },
+
+  // Memory/state: one SQLite-backed Durable Object per browser session.
+  "durable_objects": {
+    "bindings": [{ "name": "SESSIONS", "class_name": "SessionAgent" }]
+  },
+  "migrations": [{ "tag": "v1", "new_sqlite_classes": ["SessionAgent"] }],
+
+  // Coordination: durable multi-step triage with a human approval gate.
+  "workflows": [
+    { "name": "zeroday-triage", "binding": "TRIAGE_WORKFLOW", "class_name": "TriageWorkflow" }
+  ],
+
+  "observability": { "enabled": true }
+}
